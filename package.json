@@ -5,7 +5,7 @@
   "main": "explain.js",
   "bin": { "solana-tx-explainer": "explain.js" },
   "scripts": {
-    "test": "node test.js && node test-ratelimit.js",
+    "test": "node test.js && node test-token.js && node test-ratelimit.js",
     "start": "node server.js"
   },
   "license": "MIT",

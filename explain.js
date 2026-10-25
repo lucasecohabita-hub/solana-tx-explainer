@@ -40,7 +40,8 @@ async function explain(sig, opts = {}) {
   const idx = new Set([...pre, ...post].map(b => b.accountIndex));
   for (const i of idx) {
     const a = pre.find(b => b.accountIndex === i), b = post.find(x => x.accountIndex === i);
-    const before = Number(a?.uiTokenAmount?.uiAmount ?? 0), after = Number(b?.uiTokenAmount?.uiAmount ?? 0);
+    const uiOf = t => t ? (t.uiTokenAmount?.uiAmount ?? Number(t.uiTokenAmount?.amount ?? 0) / 10 ** (t.uiTokenAmount?.decimals ?? 0)) : 0;
+    const before = Number(uiOf(a)), after = Number(uiOf(b));
     if (before !== after) tokenChanges.push({ mint: (b || a).mint, owner: (b || a).owner, delta: after - before });
     if (before !== after) lines.push(`Token change: mint ${(b || a).mint.slice(0, 8)}… owner ${(b || a).owner?.slice(0, 8)}… ${after - before >= 0 ? "+" : ""}${(after - before).toFixed(6)}`);
   }
