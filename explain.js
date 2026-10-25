@@ -36,13 +36,15 @@ async function explain(sig, opts = {}) {
   const solDeltas = keys.map((k, i) => ({ k, d: ((m.postBalances?.[i] ?? 0) - (m.preBalances?.[i] ?? 0)) / 1e9 })).filter(x => Math.abs(x.d) > 0);
   for (const x of solDeltas) lines.push(`SOL change: ${x.k.slice(0, 8)}… ${x.d >= 0 ? "+" : ""}${x.d.toFixed(9)}`);
   const pre = m.preTokenBalances || [], post = m.postTokenBalances || [];
+  const tokenChanges = [];
   const idx = new Set([...pre, ...post].map(b => b.accountIndex));
   for (const i of idx) {
     const a = pre.find(b => b.accountIndex === i), b = post.find(x => x.accountIndex === i);
     const before = Number(a?.uiTokenAmount?.uiAmount ?? 0), after = Number(b?.uiTokenAmount?.uiAmount ?? 0);
+    if (before !== after) tokenChanges.push({ mint: (b || a).mint, owner: (b || a).owner, delta: after - before });
     if (before !== after) lines.push(`Token change: mint ${(b || a).mint.slice(0, 8)}… owner ${(b || a).owner?.slice(0, 8)}… ${after - before >= 0 ? "+" : ""}${(after - before).toFixed(6)}`);
   }
-  if (opts.json) return JSON.stringify({ signature: sig, status: m.err ? "failed" : "success", error: m.err || null, time: when, slot: tx.slot, feeSol: fee, signers: keys.filter((_, i) => tx.transaction.message.accountKeys[i].signer), programs, instructionCount: tx.transaction.message.instructions.length, solChanges: solDeltas.map(x => ({ account: x.k, deltaSol: x.d })) }, null, 2);
+  if (opts.json) return JSON.stringify({ signature: sig, status: m.err ? "failed" : "success", error: m.err || null, time: when, slot: tx.slot, feeSol: fee, signers: keys.filter((_, i) => tx.transaction.message.accountKeys[i].signer), programs, instructionCount: tx.transaction.message.instructions.length, solChanges: solDeltas.map(x => ({ account: x.k, deltaSol: x.d })), tokenChanges }, null, 2);
   return lines.join("\n");
 }
 
