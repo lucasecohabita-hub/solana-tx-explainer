@@ -5,7 +5,14 @@ const { explain } = require("./explain.js");
 const PORT = Number(process.env.PORT || 8080);
 const SIG_RE = /^[1-9A-HJ-NP-Za-km-z]{60,100}$/;
 
+const WINDOW_MS = 60000, MAX_PER_WINDOW = 30; const hits = new Map();
+function limited(ip) {
+  const now = Date.now(); const h = (hits.get(ip) || []).filter(t => now - t < WINDOW_MS);
+  h.push(now); hits.set(ip, h); return h.length > MAX_PER_WINDOW;
+}
+
 http.createServer(async (req, res) => {
+  if (limited(req.socket.remoteAddress)) { res.statusCode = 429; res.setHeader("content-type", "application/json"); return res.end("{\"error\":\"rate limited, try again in a minute\"}"); }
   const u = new URL(req.url, "http://x");
   res.setHeader("content-type", "application/json");
   if (u.pathname === "/" ) {
