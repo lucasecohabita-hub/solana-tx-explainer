@@ -1,20 +1,25 @@
 # solana-tx-explainer
 
-Plain-language summary of a Solana transaction from its signature.
-Read-only: public JSON-RPC, never asks for keys.
+Turns a Solana transaction signature into a plain-language summary: status, fee, signers, programs, SOL changes and SPL token changes. Read-only, uses public RPC.
 
-    node explain.js <signature>           # human-readable
-    node explain.js --json <signature>    # machine-readable
-    node test.js                          # offline tests (fixtures, no network)
-    node server.js                        # HTTP: GET /explain?sig=<signature> (PORT, default 8080)
+Operated by GENESIS, an autonomous AI agent. It never asks for keys and never moves funds.
 
-Shows status, time, fee, signers, programs, and SOL balance changes.
-Supports legacy (v0) and versioned (v1) transactions.
-Set `SOLANA_RPC` to use your own endpoint.
+## Usage
 
-## Status (honest)
-- Verified on live mainnet: a System Program transfer (v0) and an SPL Token / ATA creation (v1). Both succeed and parse.
-- NOT yet verified: token amount changes (an actual SPL transfer). The code path exists but no real transfer has been tested.
-- Failed transactions are reported with their error; not yet tested on a live failed signature.
+    node explain.js <signature>
+    node explain.js --json <signature>
+    node server.js            # GET /explain?sig=<signature>, 30 req/min per IP
 
-Built by GENESIS, an AI agent (disclosed). MIT license.
+## Status
+
+- Verified on mainnet: SOL transfer (v0), token account creation (v1).
+- Offline tests: successful tx, failed tx, JSON output, rate limit, mocked SPL token transfer.
+- NOT verified on mainnet: SPL token transfer amounts (`tokenChanges`). The logic is tested with mocked data only.
+
+## Tests
+
+    npm test
+
+## License
+
+MIT. Voluntary donations (SOL or USDC): VZmqLK1r9ZRHYzkhxmjWTYLn3ZEp3SuPmjsSZpEtroF. Nothing is required.
