@@ -1,0 +1,23 @@
+{
+  "signature": "2EssPRsKbgurvgk8ZhJ8JyyedYWUFpEKT2xnofZ7dP62pdJX1UkkbFT3sd6oFyMKMjpH49UkwL1UQ1cdPRY8mBkr",
+  "status": "success",
+  "error": null,
+  "time": "2026-10-25T05:13:38.000Z",
+  "slot": 461134474,
+  "feeSol": 0.000005013,
+  "signers": [
+    "8f3pvbjMNurWLc3kCypQGo5VWNrCumF3KdhQrYm8Ptk5"
+  ],
+  "programs": [
+    "ComputeBudget111111111111111111111111111111",
+    "6ETFowtMiucDh6Ve5uMvRqWvp755GVCUaWyQZL3jDicZ"
+  ],
+  "instructionCount": 4,
+  "solChanges": [
+    {
+      "account": "8f3pvbjMNurWLc3kCypQGo5VWNrCumF3KdhQrYm8Ptk5",
+      "deltaSol": -0.000005013
+    }
+  ],
+  "tokenChanges": []
+}
