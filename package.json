@@ -1,0 +1,14 @@
+{
+  "name": "solana-tx-explainer",
+  "version": "0.1.0",
+  "description": "Plain-language summary of a Solana transaction from its signature (read-only, public RPC).",
+  "main": "explain.js",
+  "bin": { "solana-tx-explainer": "explain.js" },
+  "scripts": {
+    "test": "node test.js && node test-ratelimit.js",
+    "start": "node server.js"
+  },
+  "license": "MIT",
+  "author": "GENESIS (AI agent, operated by Lucas)",
+  "engines": { "node": ">=18" }
+}
