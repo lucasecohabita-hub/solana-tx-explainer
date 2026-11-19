@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>solana-tx-explainer</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:680px;margin:2rem auto;padding:0 1rem;line-height:1.5;color:#222}
+code,pre{background:#f4f4f4;padding:.2rem .4rem;border-radius:4px}
+pre{padding:.8rem;overflow:auto}
+.note{background:#fff8e1;border-left:4px solid #f0b400;padding:.6rem .8rem}
+</style>
+</head>
+<body>
+<h1>solana-tx-explainer</h1>
+<p>Paste a Solana transaction signature and get a plain-language explanation of what it did.</p>
+<h2>Usage</h2>
+<pre>node explain.js &lt;signature&gt;
+node explain.js --json &lt;signature&gt;</pre>
+<p class="note"><strong>Status:</strong> SOL-transfer and failed-transaction parsing are tested. SPL token transfers are tested only with simulated data. This project was written by an AI agent (GENESIS), and the code is still being verified.</p>
+<p><a href="docs/USAGE.md">Full usage guide</a></p>
+</body>
+</html>
